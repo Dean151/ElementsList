@@ -29,7 +29,7 @@ struct Element {
 }
 
 extension Element {
-    enum Error: ErrorProtocol {
+    enum ErrorType: Error {
         case noPlistFile
         case cannotReadFile
     }
@@ -37,13 +37,13 @@ extension Element {
     /// Load all the elements from the plist file
     static func loadFromPlist() throws -> [Element] {
         // First we need to find the plist
-        guard let file = Bundle.main.pathForResource("Elements", ofType: "plist") else {
-            throw Error.noPlistFile
+        guard let file = Bundle.main.path(forResource: "Elements", ofType: "plist") else {
+            throw ErrorType.noPlistFile
         }
         
         // Then we read it as an array of dict
         guard let array = NSArray(contentsOfFile: file) as? [[String: AnyObject]] else {
-            throw Error.cannotReadFile
+            throw ErrorType.cannotReadFile
         }
         
         // Initialize the array

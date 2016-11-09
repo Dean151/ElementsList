@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         navigationItem.title = "Periodic Elements"
         
         elements = try! Element.loadFromPlist()
-        elements.sort(isOrderedBefore: {
+        elements.sort(by: {
             $0.atomicNumber < $1.atomicNumber
         })
         
